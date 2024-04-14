@@ -16,9 +16,14 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [
-        'foo' => 'bar',
+        'tasks' => auth()->user()->tasks()->orderBy('start_time', 'desc')->get(),
+        'projects' => auth()->user()->projects()->get(),
+        'clients' => auth()->user()->clients()->get(),
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+// TODO : add route /dashboard/clients for clients
+// TODO : add route /dashboard/projects for projects
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
