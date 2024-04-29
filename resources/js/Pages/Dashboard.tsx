@@ -1,25 +1,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
+import ModelTypes from 'model-types';
 
 interface DashboardProps extends PageProps {
-    // FIXME encapsulate the types
-    tasks: {
-        id: number,
-        project_id?: number,
-        user_id: number,
-        start_time: Date,
-        end_time?: Date,
-        text?: string
-    }[],
-    projects: {
-        id: number,
-        name: string
-    }[],
-    clients: {
-        id: number,
-        name: string
-    }[]
+    tasks: ModelTypes.Task[],
+    projects: ModelTypes.Project[],
+    clients: ModelTypes.Client[]
 }
 
 export default function Dashboard({ auth, tasks, projects, clients }: DashboardProps) {
