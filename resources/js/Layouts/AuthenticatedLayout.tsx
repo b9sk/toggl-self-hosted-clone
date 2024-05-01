@@ -24,7 +24,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                     Dashboard
                                 </NavLink>
                                 <div className="border-t border-gray-200 dark:border-gray-600 my-3" />
-                                <NavLink href={route('timer')} active={route().current('dashboard')}>
+                                <NavLink href={route('timer')} active={route().current('timer')}>
                                     Timer
                                 </NavLink>
                                 <div className="border-t border-gray-200 dark:border-gray-600 my-3" />
