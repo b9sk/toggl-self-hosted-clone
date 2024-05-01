@@ -9,7 +9,7 @@ interface DashboardProps extends PageProps {
     clients: ModelTypes.Client[]
 }
 
-export default function HelloWorld({auth}: DashboardProps) {
+export default function HelloWorld({ auth, tasks }: DashboardProps) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -19,7 +19,16 @@ export default function HelloWorld({auth}: DashboardProps) {
             <div className="py-0 px-0">
                 <h1>Hello World!</h1>
             </div>
-            TODO latest tasks here
+            <h3>Tasks</h3>
+
+            <ul>
+                {tasks.map(task => (
+                    <li key={task.id || undefined}>
+                        {task.text || '(no task text)'}<br />
+                        {task.start_time.toLocaleString()}
+                    </li>
+                ))}
+            </ul>
         </AuthenticatedLayout>
     );
 };

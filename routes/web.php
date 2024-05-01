@@ -25,6 +25,11 @@ Route::get('/dashboard', function () {
 // /dashboard/timer
 Route::get('/dashboard/timer', function () {
     return Inertia::render('Timer', [
+        'tasks' => auth()->user()->tasks()->orderBy('start_time', 'desc')->get(),
+
+        // 'tasks' => auth()->user()->tasks()->orderBy('start_time', 'desc')->get()->groupBy(function ($task) {
+        //     return $task->start_time->format('Y-m-d');
+        // }),
         // 'isRunning' => auth()->user()->isRunning(),
         // 'elapsed' => auth()->user()->elapsed(),
     ]);
