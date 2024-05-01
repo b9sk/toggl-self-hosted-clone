@@ -22,6 +22,16 @@ Route::get('/dashboard', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// /dashboard/timer
+Route::get('/dashboard/timer', function () {
+    return Inertia::render('Timer', [
+        // 'isRunning' => auth()->user()->isRunning(),
+        // 'elapsed' => auth()->user()->elapsed(),
+    ]);
+})->middleware(['auth', 'verified'])->name('timer');
+
+
+
 // TODO : add route /dashboard/clients for clients
 // TODO : add route /dashboard/projects for projects
 
