@@ -38,7 +38,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                 </div>
             </div>
             <div className="flex flex-col w-0 flex-1 overflow-hidden">
-                <main className="flex-1 relative z-0 overflow-y-auto pt-2 pb-6 focus:outline-none md:py-6" tabIndex={0}>
+                <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none" tabIndex={0}>
                     {header && (
                         <header className="bg-white dark:bg-gray-800 shadow">
                             <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
