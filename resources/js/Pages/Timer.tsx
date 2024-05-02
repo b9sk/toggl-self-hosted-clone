@@ -11,6 +11,7 @@ interface DashboardProps extends PageProps {
 
 function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    alert('TODO: submit form');
 }
 
 export default function HelloWorld({ auth, tasks }: DashboardProps) {
@@ -24,11 +25,10 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                 <form className="flex items-center"  onSubmit={handleSubmit}>
                     <input
                         type="text"
-                        className="w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 focus:outline-none"
+                        className="w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-l-md dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 focus:outline-none"
                         placeholder="Type your task here"
                     />
-                    <span className="mx-0.5" />
-                    <button className="px-4 py-2 text-gray-200 bg-blue-600 border border-blue-600 rounded-md hover:bg-blue-700 hover:border-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <button className="px-4 py-2 text-gray-200 bg-blue-600 border border-blue-600 rounded-r-md hover:bg-blue-700 hover:border-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
