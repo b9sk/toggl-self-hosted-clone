@@ -17,7 +17,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                 <div className="flex flex-col w-64 h-full">
                     {/* Sidebar component, swap this element with another sidebar if you like */}
                     <div className="flex flex-col flex-grow bg-white dark:bg-gray-800 border-r dark:border-gray-600 border-gray-200 overflow-y-auto">
-                        <div className="mt-5 flex-1 flex flex-col">
+                        <div className="mt-2 flex-1 flex flex-col">
                             <nav className="flex-1 px-2 space-y-1">
                                 <ProfileDropdown user={user} />
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
