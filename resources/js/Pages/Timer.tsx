@@ -26,7 +26,7 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
             <Head title="Timer" />
 
             <Popup>
-                <p>This is the content inside the popup.</p>
+                <p>This is the content inside the popup. This is the content inside the popup. This is the content inside the popup. This is the content inside the popup. This is the content inside the popup. </p>
                 {/* You can add more complex components here */}
             </Popup>
 
