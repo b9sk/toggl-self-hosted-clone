@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
 import ModelTypes from 'model-types';
+import Popup from '@/Components/Popups/BasicPopup';
 
 interface DashboardProps extends PageProps {
     tasks: ModelTypes.Task[],
@@ -15,12 +16,20 @@ function handleSubmit(e: React.FormEvent) {
 }
 
 export default function HelloWorld({ auth, tasks }: DashboardProps) {
+
+
     return (
         <AuthenticatedLayout
             user={auth.user}
             // header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Timer</h2>}
         >
             <Head title="Timer" />
+
+            <Popup>
+                <p>This is the content inside the popup.</p>
+                {/* You can add more complex components here */}
+            </Popup>
+
             <div className="py-3 px-1 bg-white dark:bg-gray-800">
                 <form className="flex items-center"  onSubmit={handleSubmit}>
                     <input
