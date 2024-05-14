@@ -30,11 +30,7 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
         const data = new FormData(e.target as HTMLFormElement);
         data.get('text');
 
-        // change state of the form
-        setIsOngoing(!isOngoing);
-
-        // TODO if isOngoing is true, submit the form
-        if (isOngoing) {
+        if (!isOngoing) {
             setFormData({
                 text: data.get('text') as string,
                 start_time: new Date(),
@@ -42,10 +38,16 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                 id: uuidv4()
             });
         } else {
-
+            // set the end time
+            setFormData({
+                ...formData,
+                end_time: new Date(),
+                updated_at: new Date(),
+            });
         }
 
-        console.log({isOngoing, formData});
+        // change state of the form
+        setIsOngoing(!isOngoing);
     }
 
     return (
