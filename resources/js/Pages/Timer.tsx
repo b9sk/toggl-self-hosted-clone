@@ -10,16 +10,16 @@ interface DashboardProps extends PageProps {
     clients: ModelTypes.Client[]
 }
 
-function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    // TODO change state of the form
-    //   TODO change input state
-    //   TODO change button state
-}
-
 export default function HelloWorld({ auth, tasks }: DashboardProps) {
     // initial state
     const [isOngoing, setIsOngoing] = useState<boolean | null>(null);
+
+    function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        // TODO change state of the form
+        setIsOngoing(!isOngoing);
+        console.log({isOngoing});
+    }
 
     return (
         <AuthenticatedLayout
@@ -30,9 +30,9 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
             <div className="py-3 px-1 bg-white dark:bg-gray-800">
                 <form className="flex items-center" onSubmit={handleSubmit}>
                     <input
-                        disabled
                         type="text"
                         className="w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-l-md dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 focus:outline-none"
+                        style={ isOngoing ? {background: 'none'} : {} }
                         placeholder="Type your task here"
                     />
 
