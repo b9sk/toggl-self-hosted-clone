@@ -16,7 +16,12 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
     // initial state
     const [isOngoing, setIsOngoing] = useState<boolean | null>(null);
     // add a state that stores the form data
-    const [formData, setFormData] = useState<FormDataInterface | string>('');
+    const [formData, setFormData] = useState<FormDataInterface>({
+        text: '',
+        start_time: new Date(),
+        user_id: auth.user.id,
+        id: '',
+    });
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -56,8 +61,8 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                         className="w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-l-md dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 focus:outline-none"
                         style={ isOngoing ? {background: 'none'} : {} }
                         placeholder="Type your task here"
-                        value={formData?.text}
-                        onChange={(e) => { e.target.value = formData?.text || '' }}
+                        value={formData.text}
+                        onChange={(e) => { setFormData({ ...formData, text: e.target.value }) }}
                     />
 
                     {/* The project picker draft */}
