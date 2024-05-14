@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import { useState } from 'react';
 import { PageProps } from '@/types';
 import ModelTypes from 'model-types';
 
@@ -11,10 +12,15 @@ interface DashboardProps extends PageProps {
 
 function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    alert('TODO: submit form');
+    // TODO change state of the form
+    //   TODO change input state
+    //   TODO change button state
 }
 
 export default function HelloWorld({ auth, tasks }: DashboardProps) {
+    // initial state
+    const [isOngoing, setIsOngoing] = useState<boolean | null>(null);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
