@@ -10,15 +10,36 @@ interface DashboardProps extends PageProps {
     clients: ModelTypes.Client[]
 }
 
+interface FormDataInterface extends ModelTypes.Task {}
+
 export default function HelloWorld({ auth, tasks }: DashboardProps) {
     // initial state
     const [isOngoing, setIsOngoing] = useState<boolean | null>(null);
+    // add a state that stores the form data
+    const [formData, setFormData] = useState<FormDataInterface | string>('');
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        // TODO change state of the form
+        // get the data from the form
+        const data = new FormData(e.target as HTMLFormElement);
+        data.get('text');
+
+        // change state of the form
         setIsOngoing(!isOngoing);
-        console.log({isOngoing});
+
+        // TODO if isOngoing is true, submit the form
+        if (isOngoing) {
+            setFormData({
+                text: data.get('text') as string,
+                start_time: new Date(),
+                user_id: auth.user.id,
+                id: "sfsdf"
+            });
+        } else {
+
+        }
+
+        console.log({isOngoing, formData});
     }
 
     return (
@@ -30,10 +51,13 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
             <div className="py-3 px-1 bg-white dark:bg-gray-800">
                 <form className="flex items-center" onSubmit={handleSubmit}>
                     <input
+                        name='text'
                         type="text"
                         className="w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-l-md dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 focus:outline-none"
                         style={ isOngoing ? {background: 'none'} : {} }
                         placeholder="Type your task here"
+                        value={formData?.text}
+                        onChange={(e) => { e.target.value = formData?.text || '' }}
                     />
 
                     {/* The project picker draft */}
