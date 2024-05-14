@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { PageProps } from '@/types';
 import ModelTypes from 'model-types';
 import { v4 as uuidv4 } from 'uuid';
+import { router } from '@inertiajs/react'
+
 
 interface DashboardProps extends PageProps {
     tasks: ModelTypes.Task[],
@@ -44,11 +46,18 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                 end_time: new Date(),
                 updated_at: new Date(),
             });
+
+            // submit the form to backend
+            // @ts-ignore
+            router.post('/api/timer/create', formData);
         }
 
         // change state of the form
         setIsOngoing(!isOngoing);
     }
+
+    console.log("isOngoing inside the component", isOngoing);
+    console.log(formData);
 
     return (
         <AuthenticatedLayout
