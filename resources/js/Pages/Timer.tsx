@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 import { PageProps } from '@/types';
 import ModelTypes from 'model-types';
+import { v4 as uuidv4 } from 'uuid';
 
 interface DashboardProps extends PageProps {
     tasks: ModelTypes.Task[],
@@ -38,7 +39,7 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                 text: data.get('text') as string,
                 start_time: new Date(),
                 user_id: auth.user.id,
-                id: "sfsdf"
+                id: uuidv4()
             });
         } else {
 
