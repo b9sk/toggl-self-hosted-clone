@@ -42,6 +42,8 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
         data.get('text');
 
         if (!isOngoing) {
+            // TODO start ongoing timer
+
             setFormData({
                 text: data.get('text') as string,
                 start_time: new Date(),
@@ -49,18 +51,17 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                 id: uuidv4()
             });
         } else {
-            // set the end time
-            setFormData({
-                ...formData,
-                end_time: new Date(),
-                updated_at: new Date(),
-            });
+
+            // TODO end the ongoing timer
 
             // submit the form to backend
             router.post(
-                '/api/timer/create',
+                '/api/timer/store',
                 // @ts-ignore
-                formData,
+                {
+                    ...formData,
+                    end_time: new Date(),
+                },
                 {
                     onSuccess: () => {
                         // reset the form

@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Timer;
-use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
+use App\Models\Task;
 
-class TimerController
+class TaskController
 {
     public function index()
     {
@@ -23,12 +23,19 @@ class TimerController
         ]);
     }
 
-    public function create(Request $request)
+    public function store()
     {
+        $taskRequest = request()->all();
+
+        Task::updateOrCreate([
+            'id' => $taskRequest['id'],
+        ], $taskRequest);
+
+        $task = Task::query()->find($taskRequest['id']);
+
         return Inertia::render('SuccessPage', [
             'data' => [
-                'user' => auth()->user(),
-                'tasks' => auth()->user()->tasks()->orderBy('start_time', 'desc')->get(),
+                'task' => $task,
             ]
         ]);
     }
