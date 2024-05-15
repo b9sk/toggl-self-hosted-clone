@@ -33,6 +33,7 @@ class TaskController
 
         $task = Task::query()->find($taskRequest['id']);
 
+        // FIXME replace the Inertia::render by axios on the frontend in Timer's form handler
         return Inertia::render('SuccessPage', [
             'data' => [
                 'task' => $task,

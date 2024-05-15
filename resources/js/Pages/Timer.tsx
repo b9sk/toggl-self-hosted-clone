@@ -44,12 +44,28 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
         if (!isOngoing) {
             // TODO start ongoing timer
 
-            setFormData({
+            const initFormData = {
+                ...formData,
                 text: data.get('text') as string,
                 start_time: new Date(),
                 user_id: auth.user.id,
                 id: uuidv4()
-            });
+            }
+
+            router.post(
+                '/api/timer/store',
+                {
+                    ...initFormData
+                },
+                {
+                    onFinish: () => {
+                        setFormData({
+                            ...initFormData
+                        });
+                        console.log("task created", initFormData);
+                    },
+                }
+            )
         } else {
 
             // TODO end the ongoing timer
@@ -62,7 +78,7 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                     end_time: new Date(),
                 },
                 {
-                    onSuccess: () => {
+                    onFinish: (response) => {
                         // reset the form
                         setFormData({
                             text: '',
@@ -70,6 +86,7 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                             user_id: auth.user.id,
                             id: '',
                         });
+                        console.log("task updated", response.data);
                     },
                 }
             );
