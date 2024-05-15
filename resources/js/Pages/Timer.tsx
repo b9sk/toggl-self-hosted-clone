@@ -17,6 +17,7 @@ interface FormDataInterface extends ModelTypes.Task {}
 
 export default function HelloWorld({ auth, tasks }: DashboardProps) {
     // States
+    const [title, setTitle] = useState<string>('Timer');
     const [isOngoing, setIsOngoing] = useState<boolean | null>(null);
     const [formData, setFormData] = useState<FormDataInterface>({
         text: '',
@@ -51,6 +52,7 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                 user_id: auth.user.id,
                 id: uuidv4()
             }
+            setTitle(initFormData.text);
 
             router.post(
                 '/api/timer/store',
@@ -67,6 +69,7 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                 }
             )
         } else {
+            setTitle('Timer');
 
             // TODO end the ongoing timer
 
@@ -105,7 +108,7 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
             user={auth.user}
             // header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Timer</h2>}
         >
-            <Head title="Timer" />
+            <Head title={title} />
             <div className="py-3 px-1 bg-white dark:bg-gray-800">
                 <form className="flex items-center" onSubmit={handleSubmit}>
                     <input
