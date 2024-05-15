@@ -25,7 +25,11 @@ class TimerController
 
     public function create(Request $request)
     {
-        return back()->with('success', 'Timer created successfully');
-//        return response()->json(['test']);
+        return Inertia::render('SuccessPage', [
+            'data' => [
+                'user' => auth()->user(),
+                'tasks' => auth()->user()->tasks()->orderBy('start_time', 'desc')->get(),
+            ]
+        ]);
     }
 }
