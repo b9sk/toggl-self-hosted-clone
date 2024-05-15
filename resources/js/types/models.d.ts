@@ -1,7 +1,7 @@
 declare module 'model-types' {
     interface Task {
         id: string;
-        start_time: Date;
+        start_time?: Date;
         user_id: number;
         project_id?: number;
         text?: string;

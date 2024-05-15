@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { PageProps } from '@/types';
 import ModelTypes from 'model-types';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,18 +16,27 @@ interface DashboardProps extends PageProps {
 interface FormDataInterface extends ModelTypes.Task {}
 
 export default function HelloWorld({ auth, tasks }: DashboardProps) {
-    // initial state
+    // States
     const [isOngoing, setIsOngoing] = useState<boolean | null>(null);
-    // add a state that stores the form data
     const [formData, setFormData] = useState<FormDataInterface>({
         text: '',
-        start_time: new Date(),
+        start_time: undefined,
         user_id: auth.user.id,
         id: '',
     });
 
+    // Refs
+    const textInputRef = useRef<HTMLInputElement>(null);
+
+    // Event handlers
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+        // Get the input element using the ref
+        const textInputElement = textInputRef.current;
+        if (textInputElement) {
+            textInputElement.blur();
+        }
+
         // get the data from the form
         const data = new FormData(e.target as HTMLFormElement);
         data.get('text');
@@ -48,14 +57,29 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
             });
 
             // submit the form to backend
-            // @ts-ignore
-            router.post('/api/timer/create', formData);
+            router.post(
+                '/api/timer/create',
+                // @ts-ignore
+                formData,
+                {
+                    onSuccess: () => {
+                        // reset the form
+                        setFormData({
+                            text: '',
+                            start_time: undefined,
+                            user_id: auth.user.id,
+                            id: '',
+                        });
+                    },
+                }
+            );
         }
 
         // change state of the form
         setIsOngoing(!isOngoing);
     }
 
+    // Debug
     console.log("isOngoing inside the component", isOngoing);
     console.log(formData);
 
@@ -70,8 +94,9 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                     <input
                         name='text'
                         type="text"
+                        ref={textInputRef}
                         className="w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-l-md dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 focus:outline-none"
-                        style={ isOngoing ? {background: 'none'} : {} }
+                        style={ isOngoing ? {background: 'none', border: 'none', fontWeight: 'bolder'} : {} }
                         placeholder="Type your task here"
                         value={formData.text}
                         onChange={(e) => { setFormData({ ...formData, text: e.target.value }) }}
@@ -107,7 +132,7 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                     {tasks.map(task => (
                         <li key={task.id || undefined}>
                             {task.text || '(no task text)'}<br />
-                            {task.start_time.toLocaleString()}
+                            {task.start_time?.toLocaleString()}
                         </li>
                     ))}
                 </ul></div>
