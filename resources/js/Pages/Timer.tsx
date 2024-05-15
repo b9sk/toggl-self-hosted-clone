@@ -57,7 +57,6 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
             // submit the form to backend
             router.post(
                 '/api/timer/store',
-                // @ts-ignore
                 {
                     ...formData,
                     end_time: new Date(),
