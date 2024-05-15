@@ -25,6 +25,7 @@ class Task extends Model
 {
 	protected $table = 'tasks';
 	public $timestamps = true;
+    protected $keyType = 'string';
 
 	protected $casts = [
 		'project_id' => 'int',
@@ -33,6 +34,7 @@ class Task extends Model
 	];
 
 	protected $fillable = [
+        'id',
 		'project_id',
 		'start_time',
 		'end_time',

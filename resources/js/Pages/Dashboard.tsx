@@ -27,7 +27,7 @@ export default function Dashboard({ auth, tasks, projects, clients }: DashboardP
                                 {tasks.map(task => (
                                     <li key={task.id || undefined}>
                                         {task.text || '(no task text)'}<br />
-                                        {task.start_time.toLocaleString()}
+                                        {task.start_time?.toLocaleString()}
                                     </li>
                                 ))}
                             </ul>

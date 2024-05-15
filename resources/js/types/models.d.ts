@@ -1,13 +1,13 @@
 declare module 'model-types' {
     interface Task {
         id: string;
-        project_id: number | null;
-        start_time: Date;
-        end_time: Date | null;
-        text: string | null;
-        created_at: Date | null;
-        updated_at: Date | null;
+        start_time?: Date;
         user_id: number;
+        project_id?: number;
+        text?: string;
+        end_time?: Date;
+        created_at?: Date;
+        updated_at?: Date;
     }
 
     interface Project {

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Timer\TaskController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -23,17 +24,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // /dashboard/timer
-Route::get('/dashboard/timer', function () {
-    return Inertia::render('Timer', [
-        'tasks' => auth()->user()->tasks()->orderBy('start_time', 'desc')->get(),
-
-        // 'tasks' => auth()->user()->tasks()->orderBy('start_time', 'desc')->get()->groupBy(function ($task) {
-        //     return $task->start_time->format('Y-m-d');
-        // }),
-        // 'isRunning' => auth()->user()->isRunning(),
-        // 'elapsed' => auth()->user()->elapsed(),
-    ]);
-})->middleware(['auth', 'verified'])->name('timer');
+Route::get('/dashboard/timer', [TaskController::class, 'index'])->middleware(['auth', 'verified'])->name('timer');
+Route::post('/api/timer/store', [TaskController::class, 'store'])->middleware(['auth', 'verified'])->name('timer.create');
 
 
 
