@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-const TimerCounter = ({ active = false, offsetInSeconds = 0 }) => {
+const TimerCounter = ({ isActive = false, offsetInSeconds = 0 }) => {
   const [second, setSecond] = useState("00");
   const [minute, setMinute] = useState("00");
-  const [isActive, setIsActive] = useState(active);
   const [counter, setCounter] = useState(offsetInSeconds);
 
   useEffect(() => {
@@ -13,6 +12,11 @@ const TimerCounter = ({ active = false, offsetInSeconds = 0 }) => {
       intervalId = setInterval(() => {
         setCounter((prevCounter) => prevCounter + 1);
       }, 1000);
+    } else {
+      clearInterval(intervalId);
+      setCounter(0);
+      setSecond("00");
+      setMinute("00");
     }
 
     return () => clearInterval(intervalId);
@@ -31,25 +35,12 @@ const TimerCounter = ({ active = false, offsetInSeconds = 0 }) => {
     setMinute(computedMinute);
   }, [counter]);
 
-  function stopTimer() {
-    setIsActive(false);
-    setCounter(0);
-    setSecond("00");
-    setMinute("00");
-  }
-
   return (
     <div>
       <div>
         <span>{minute}</span>
         <span>:</span>
         <span>{second}</span>
-      </div>
-      <div>
-        <button onClick={() => setIsActive(!isActive)}>
-          {isActive ? "Pause" : "Start"}
-        </button>
-        <button onClick={stopTimer}>Reset</button>
       </div>
     </div>
   );
