@@ -41,19 +41,17 @@ const Timer = () => {
   }
 
   return (
-    <div class="container">
-      <div class="time">
-        <span class="minute">{minute}</span>
+    <div>
+      <div>
+        <span>{minute}</span>
         <span>:</span>
-        <span class="second">{second}</span>
+        <span>{second}</span>
       </div>
-      <div class="buttons">
-        <button onClick={() => setIsActive(!isActive)} class="start">
+      <div>
+        <button onClick={() => setIsActive(!isActive)}>
           {isActive ? "Pause" : "Start"}
         </button>
-        <button onClick={stopTimer} class="reset">
-          Reset
-        </button>
+        <button onClick={stopTimer}>Reset</button>
       </div>
     </div>
   );
