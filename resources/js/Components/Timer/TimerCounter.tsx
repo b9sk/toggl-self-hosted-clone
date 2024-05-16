@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-const Timer = () => {
+const TimerCounter = ({ active = false, offsetInSeconds = 0 }) => {
   const [second, setSecond] = useState("00");
   const [minute, setMinute] = useState("00");
-  const [isActive, setIsActive] = useState(false);
-  const [counter, setCounter] = useState(0);
+  const [isActive, setIsActive] = useState(active);
+  const [counter, setCounter] = useState(offsetInSeconds);
 
   useEffect(() => {
     let intervalId: ReturnType<typeof setInterval> | undefined;
@@ -57,4 +57,4 @@ const Timer = () => {
   );
 };
 
-export default Timer;
+export default TimerCounter;
