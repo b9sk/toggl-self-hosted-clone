@@ -14,14 +14,14 @@ const Timer = () => {
         const secondCounter = counter % 60;
         const minuteCounter = Math.floor(counter / 60);
 
-        let computedSecond =
+        const computedSecond =
           String(secondCounter).length === 1
             ? `0${secondCounter}`
-            : secondCounter;
-        let computedMinute =
+            : String(secondCounter);
+        const computedMinute =
           String(minuteCounter).length === 1
             ? `0${minuteCounter}`
-            : minuteCounter;
+            : String(minuteCounter);
 
         setSecond(computedSecond);
         setMinute(computedMinute);
