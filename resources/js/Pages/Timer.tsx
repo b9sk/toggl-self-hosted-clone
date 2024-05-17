@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { router } from '@inertiajs/react'
 import { PlayCircleIcon } from '@heroicons/react/24/outline'
 import { StopCircleIcon } from '@heroicons/react/24/outline'
-import { FolderIcon } from '@heroicons/react/24/solid'
 import TimerCounter from '@/Components/Timer/TimerCounter';
+import ProjectPicker from '@/Components/Timer/ProjectPicker';
 
 interface DashboardProps extends PageProps {
     tasks: ModelTypes.Task[],
@@ -105,10 +105,6 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
         setIsOngoing(!isOngoing);
     }
 
-    // Debug
-    console.log("isOngoing inside the component", isOngoing);
-    console.log(formData);
-
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -128,11 +124,7 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                         onChange={(e) => { setFormData({ ...formData, text: e.target.value }) }}
                     />
 
-                    {/* The project picker draft */}
-                    <div className="p-2 px-3 text-gray-400 border-r border-gray-300 dark:text-gray-500 dark:border-gray-600 cursor-pointer">
-                        <FolderIcon className="h-6 w-6" />
-                    </div>
-                    {/* The project picker draft */}
+                    <ProjectPicker />
 
                     <div
                         className="p-2 px-3 text-gray-400 border-r border-gray-300 dark:text-gray-500 dark:border-gray-600 text-left"
@@ -144,7 +136,6 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                                 <PlayCircleIcon className="h-6 w-6 text-white" />
                             ) : (
                                 <StopCircleIcon className="h-6 w-6 text-white" />
-
                             )
                         }
                     </button>
