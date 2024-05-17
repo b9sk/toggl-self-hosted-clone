@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const TimerCounter = ({ isActive = false, offsetInSeconds = 0 }) => {
+const TimerCounter = ({ isActive = false, offsetInSeconds = 0, headTitle = "" }) => {
   const [hour, setHour] = useState("00");
   const [minute, setMinute] = useState("00");
   const [second, setSecond] = useState("00");
@@ -39,6 +39,11 @@ const TimerCounter = ({ isActive = false, offsetInSeconds = 0 }) => {
     setMinute(computedMinute);
     setHour(computedHour);
   }, [counter]);
+
+    // update document title
+    useEffect(() => {
+        document.title = `${hour}:${minute}:${second} ${headTitle}`;
+    }, [counter]);
 
   return (
     <>

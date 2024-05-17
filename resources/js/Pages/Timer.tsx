@@ -137,7 +137,7 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                     <div
                         className="p-2 px-3 text-gray-400 border-r border-gray-300 dark:text-gray-500 dark:border-gray-600 text-left"
                         style={ {minWidth: '86px'} }
-                    ><TimerCounter isActive={timerActive} /></div>
+                    ><TimerCounter isActive={timerActive} headTitle={title} /></div>
 
                     <button className="px-4 py-2 text-gray-200 bg-blue-600 border border-blue-600 rounded-r-md hover:bg-blue-700 hover:border-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         {!isOngoing ? (
