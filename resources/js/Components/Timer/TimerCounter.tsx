@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 const TimerCounter = ({ isActive = false, offsetInSeconds = 0 }) => {
-  const [second, setSecond] = useState("00");
+  const [hour, setHour] = useState("00");
   const [minute, setMinute] = useState("00");
+  const [second, setSecond] = useState("00");
   const [counter, setCounter] = useState(offsetInSeconds);
 
   useEffect(() => {
@@ -15,8 +16,9 @@ const TimerCounter = ({ isActive = false, offsetInSeconds = 0 }) => {
     } else {
       clearInterval(intervalId);
       setCounter(0);
-      setSecond("00");
+      setHour("0");
       setMinute("00");
+      setSecond("00");
     }
 
     return () => clearInterval(intervalId);
@@ -24,26 +26,26 @@ const TimerCounter = ({ isActive = false, offsetInSeconds = 0 }) => {
 
   useEffect(() => {
     const secondCounter = counter % 60;
-    const minuteCounter = Math.floor(counter / 60);
+    const minuteCounter = Math.floor((counter / 60) % 60);
+    const hourCounter = Math.floor(counter / 3600);
 
     const computedSecond =
       String(secondCounter).length === 1 ? `0${secondCounter}` : String(secondCounter);
     const computedMinute =
       String(minuteCounter).length === 1 ? `0${minuteCounter}` : String(minuteCounter);
+    const computedHour = String(hourCounter);
 
     setSecond(computedSecond);
     setMinute(computedMinute);
+    setHour(computedHour);
   }, [counter]);
 
   return (
-    <div>
-      <div>
-        <span>{minute}</span>
-        <span>:</span>
-        <span>{second}</span>
-      </div>
-    </div>
+    <>
+      {hour}:{minute}:{second}
+    </>
   );
 };
 
 export default TimerCounter;
+
