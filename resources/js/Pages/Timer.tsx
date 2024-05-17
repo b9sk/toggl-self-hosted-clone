@@ -8,6 +8,7 @@ import { router } from '@inertiajs/react'
 import { PlayCircleIcon } from '@heroicons/react/24/outline'
 import { StopCircleIcon } from '@heroicons/react/24/outline'
 import { FolderIcon } from '@heroicons/react/24/solid'
+import TimerCounter from '@/Components/Timer/TimerCounter';
 
 interface DashboardProps extends PageProps {
     tasks: ModelTypes.Task[],
@@ -20,13 +21,14 @@ interface FormDataInterface extends ModelTypes.Task {}
 export default function HelloWorld({ auth, tasks }: DashboardProps) {
     // States
     const [title, setTitle] = useState<string>('Timer');
-    const [isOngoing, setIsOngoing] = useState<boolean | null>(null);
+    const [isOngoing, setIsOngoing] = useState<boolean>(false);
     const [formData, setFormData] = useState<FormDataInterface>({
         text: '',
         start_time: undefined,
         user_id: auth.user.id,
         id: '',
     });
+    const [timerActive, setTimerActive] = useState(false);
 
     // Refs
     const textInputRef = useRef<HTMLInputElement>(null);
@@ -45,7 +47,8 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
         data.get('text');
 
         if (!isOngoing) {
-            // TODO start ongoing timer
+            // start the timer
+            setTimerActive(true)
 
             const initFormData = {
                 ...formData,
@@ -71,9 +74,10 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                 }
             )
         } else {
-            setTitle('Timer');
+            // stop the timer
+            setTimerActive(false)
 
-            // TODO end the ongoing timer
+            setTitle('Timer');
 
             // submit the form to backend
             router.post(
@@ -130,6 +134,11 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
                     </div>
                     {/* The project picker draft */}
 
+                    <div
+                        className="p-2 px-3 text-gray-400 border-r border-gray-300 dark:text-gray-500 dark:border-gray-600 text-left"
+                        style={ {minWidth: '86px'} }
+                    ><TimerCounter isActive={timerActive} headTitle={title} /></div>
+
                     <button className="px-4 py-2 text-gray-200 bg-blue-600 border border-blue-600 rounded-r-md hover:bg-blue-700 hover:border-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         {!isOngoing ? (
                                 <PlayCircleIcon className="h-6 w-6 text-white" />
@@ -143,7 +152,6 @@ export default function HelloWorld({ auth, tasks }: DashboardProps) {
             </div>
             <div className='py-3 px-1'>
                 <h3>Tasks</h3>
-
                 <ul>
                     {tasks.map(task => (
                         <li key={task.id || undefined}>
